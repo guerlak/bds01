@@ -32,7 +32,7 @@ public class EmployeeControllerIT {
 	public void findAllShouldReturnPagedResourcesSortedByName() throws Exception {
 		
 		ResultActions result =
-				mockMvc.perform(get("/employees")
+				mockMvc.perform(get("/employees?page=0&size=10&sort=name,asc")
 					.contentType(MediaType.APPLICATION_JSON));
 
 		result.andExpect(status().isOk());
@@ -49,7 +49,8 @@ public class EmployeeControllerIT {
 		String jsonBody = objectMapper.writeValueAsString(dto);
 		
 		ResultActions result =
-				mockMvc.perform(post("/employees")
+				mockMvc.perform(
+						post("/employees")
 					.content(jsonBody)
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON));
