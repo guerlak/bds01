@@ -25,12 +25,13 @@ public class DepartmentControllerIT {
 	public void findAllShouldReturnAllResourcesSortedByName() throws Exception {
 		
 		ResultActions result =
-				mockMvc.perform(get("/departments")
+				mockMvc.perform(get("/departments?page=0&size=5&sort=name,asc")
 					.contentType(MediaType.APPLICATION_JSON));
 
 		result.andExpect(status().isOk());
-		result.andExpect(jsonPath("$[0].name").value("Management"));
-		result.andExpect(jsonPath("$[1].name").value("Sales"));
-		result.andExpect(jsonPath("$[2].name").value("Training"));
+		result.andExpect(jsonPath(".content").exists());
+		result.andExpect(jsonPath("$.content[0].name").value("Management"));
+		result.andExpect(jsonPath("$.content[1].name").value("Sales"));
+		result.andExpect(jsonPath("$.content[2].name").value("Training"));
 	}
 }

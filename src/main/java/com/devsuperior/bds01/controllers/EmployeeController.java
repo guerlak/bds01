@@ -21,7 +21,7 @@ public class EmployeeController {
 
 
     @GetMapping
-    public ResponseEntity<Page<EmployeeDTO>> findAll(Pageable pageable){
+    public ResponseEntity<Page<EmployeeDTO>> findAllPaged(Pageable pageable){
         Page<EmployeeDTO> list  = service.findAllPaged(pageable);
         return ResponseEntity.ok().body(list);
     }
@@ -29,7 +29,6 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<EmployeeDTO> create(@RequestBody EmployeeDTO dto){
 
-        System.out.println(dto +  "  -> aloha");
         Employee employee  = service.create(dto);
 
         URI uri = ServletUriComponentsBuilder
